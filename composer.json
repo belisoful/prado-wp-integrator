@@ -21,7 +21,14 @@
 			"PradoWpIntegrator\\": "src"
 		}
 	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://asset-packagist.org"
+		}
+	],
 	"require": {
+		"php": ">=7.4.0",
 		"pradosoft/prado" : ">=4.2.0"
 	},
 	"extra": {
