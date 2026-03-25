@@ -9,9 +9,9 @@
 - **Single Test Method**: `vendor/bin/phpunit --testsuite unit tests/unit/Path/To/TestFile.php::testMethodName`
 
 ### Linting and Code Analysis
-- **PHPStan Analysis**: `vendor/bin/phpstan analyse framework/ --memory-limit=512M`
-- **PHP CS Fixer**: `vendor/bin/php-cs-fixer fix --dry-run framework/` (check)
-- **PHP CS Fixer (Fix)**: `vendor/bin/php-cs-fixer fix framework/` (apply fixes)
+- **PHPStan Analysis**: `vendor/bin/phpstan analyse Pages/ Portlets/ src/ --memory-limit=512M`
+- **PHP CS Fixer**: `vendor/bin/php-cs-fixer fix --dry-run` (check)
+- **PHP CS Fixer (Fix)**: `vendor/bin/php-cs-fixer fix` (apply fixes)
 
 ### Build Commands
 - **Generate Documentation**: `composer gendoc` - generates API documentation
@@ -67,9 +67,11 @@
 - Data components should support `TActiveRecord` pattern
 - All UI controls should have proper template support and state management
 - All changes must be backward compatible.
-- All commits must succeed: no compile errors, phpstan, unit test, and php-cs-fixer
+- All commits must succeed: no php compile errors, phpstan, unit test, and php-cs-fixer
+- The current version is 0.0.1.
 
 ## Testing Guidelines
+- The testing framework is "phpunit".
 - All new code must include unit tests
 - Test both typical and edge cases
 - Test error conditions and exception handling
