@@ -1,0 +1,4 @@
+<com:TContent ID=<%= Prado::getApplication()->getParameters()->itemAt('PluginContentID') %>>
+		<center><h2><com:WPPostContentTitle PostID="3" /></h2></center>
+		<com:WPPostContent PostID="3" />
+</com:TContent>
