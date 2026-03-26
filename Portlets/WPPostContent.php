@@ -56,6 +56,7 @@ class WPPostContent extends TTemplateControl
 	protected function loadTemplate()
 	{
 		$module = $this->getPluginModule();
+
 		Prado::trace("Loading WordPress template " . get_class($this), '\Prado\Web\UI\TTemplateControl');
 
 		$post = $module->getWPPost($this->getPostId());

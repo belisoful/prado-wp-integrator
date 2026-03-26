@@ -47,9 +47,9 @@ class WPUserManager extends TDbUserManager
 	/**
 	 * Returns the plugin module.
 	 *
-	 * @return WPIntegratorModule The plugin module
+	 * @return mixed The plugin module
 	 */
-	public function getManager()
+	public function getPluginModule()
 	{
 		return $this->_pluginModule;
 	}
@@ -57,12 +57,12 @@ class WPUserManager extends TDbUserManager
 	/**
 	 * Sets the plugin module.
 	 *
-	 * @param WPIntegratorModule $manager The plugin manager
+	 * @param WPIntegratorModule $pluginModule The plugin manager
 	 * @return void
 	 */
-	public function setManager($manager)
+	public function setPluginModule($pluginModule)
 	{
-		$this->_pluginModule = $manager;
+		$this->_pluginModule = $pluginModule;
 	}
 
 

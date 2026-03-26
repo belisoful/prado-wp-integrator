@@ -122,8 +122,9 @@ class WPUser extends TDbUser
 		if ($expiration < time()) {
 			return null;
 		}
+
 		$userManager = $this->getManager();
-		$pluginModule = $userManager->getManager();
+		$pluginModule = $userManager->getPluginModule();
 		$user = $pluginModule->get_user_by('login', $username);
 		if (!$user) {
 			return null;
@@ -140,7 +141,7 @@ class WPUser extends TDbUser
 			return null;
 		}
 
-		$manager = WP_Session_Tokens::get_instance($user->ID);
+		$manager = \WP_Session_Tokens::get_instance($user->ID);
 		if (! $manager->verify($token)) {
 			return null;
 		}

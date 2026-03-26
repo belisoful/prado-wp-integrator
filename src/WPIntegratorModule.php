@@ -309,7 +309,7 @@ class WPIntegratorModule extends TDbPluginModule
 		//var_dump(unserialize($this->getOption(self::WP_USER_ROLLS)));
 		$this->_userManager = new WPUserManager();
 		$this->_userManager->setId($this->getWPUserManagerID());
-		$this->_userManager->setManager($this);
+		$this->_userManager->setPluginModule($this);
 		$this->_userManager->setUserClass('WPUser');
 		$this->getApplication()->setModule($this->getWPUserManagerID(), $this->_userManager);
 		$this->_userManager->dyPreInit(null);
@@ -317,7 +317,7 @@ class WPIntegratorModule extends TDbPluginModule
 		// Load the Wordpress Auth Manager
 		$this->_authManager = new WPAuthManager();
 		$this->_authManager->setId($this->getWPAuthManagerID());
-		$this->_authManager->setManager($this);
+		$this->_authManager->setPluginModule($this);
 		$this->_authManager->setUserManager($this->getWPUserManagerID());
 		$this->_authManager->setAllowAutoLogin(true);
 		$this->_authManager->setLoginPage($this->_loginPage);

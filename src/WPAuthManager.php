@@ -42,9 +42,9 @@ class WPAuthManager extends TAuthManager
 
 	/**
 	 * Returns the plugin manager.
-	 * @return null|WPIntegratorModule for the plugin module
+	 * @return null|mixed for the plugin module
 	 */
-	public function getManager()
+	public function getPluginModule()
 	{
 		return $this->_pluginManager;
 	}
@@ -53,7 +53,7 @@ class WPAuthManager extends TAuthManager
 	 * Sets the plugin manager.
 	 * @param WPIntegratorModule $manager sets WPIntegratorModule for the plugin module
 	 */
-	public function setManager(WPIntegratorModule $manager)
+	public function setPluginModule(WPIntegratorModule $manager)
 	{
 		$this->_pluginManager = $manager;
 	}
