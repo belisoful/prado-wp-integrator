@@ -78,6 +78,218 @@ class WPIntegratorModule extends TDbPluginModule
 	 */
 	private $_loginPage;
 
+	//	***  Keys  ***
+	/**
+	 * @var string The WordPress secret key
+	 */
+	private $_secretKey;
+
+	/**
+	 * @var string The WordPress auth key
+	 */
+	private $_authKey;
+
+	/**
+	 * @var string The WordPress secure auth key
+	 */
+	private $_secureAuthKey;
+
+	/**
+	 * @var string The WordPress logged in key
+	 */
+	private $_loggedInKey;
+
+
+	//	***  Salt  ***
+	/**
+	 * @var string The WordPress secret salt
+	 */
+	private $_secretSalt;
+
+	/**
+	 * @var string The WordPress auth salt
+	 */
+	private $_authSalt;
+
+	/**
+	 * @var string The WordPress secure auth salt
+	 */
+	private $_secureAuthSalt;
+
+	/**
+	 * @var string The WordPress logged in salt
+	 */
+	private $_loggedInSalt;
+
+	/**
+	 * @var string The WordPress nonce salt
+	 */
+	private $_nonceSalt;
+
+
+	/**
+	 * Gets the WordPress secret key.
+	 * @return string The secret key
+	 */
+	public function getSecretKey()
+	{
+		return $this->_secretKey;
+	}
+
+	/**
+	 * Sets the WordPress secret key.
+	 * @param string $value The secret key
+	 */
+	public function setSecretKey($value)
+	{
+		$this->_secretKey = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress auth key.
+	 * @return string The auth key
+	 */
+	public function getAuthKey()
+	{
+		return $this->_authKey;
+	}
+
+	/**
+	 * Sets the WordPress auth key.
+	 * @param string $value The auth key
+	 */
+	public function setAuthKey($value)
+	{
+		$this->_authKey = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress secure auth key.
+	 * @return string The secure auth key
+	 */
+	public function getSecureAuthKey()
+	{
+		return $this->_secureAuthKey;
+	}
+
+	/**
+	 * Sets the WordPress secure auth key.
+	 * @param string $value The secure auth key
+	 */
+	public function setSecureAuthKey($value)
+	{
+		$this->_secureAuthKey = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress logged in key.
+	 * @return string The logged in key
+	 */
+	public function getLoggedInKey()
+	{
+		return $this->_loggedInKey;
+	}
+
+	/**
+	 * Sets the WordPress logged in key.
+	 * @param string $value The logged in key
+	 */
+	public function setLoggedInKey($value)
+	{
+		$this->_loggedInKey = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress secret salt.
+	 * @return string The secret salt
+	 */
+	public function getSecretSalt()
+	{
+		return $this->_secretSalt;
+	}
+
+	/**
+	 * Sets the WordPress secret salt.
+	 * @param string $value The secret salt
+	 */
+	public function setSecretSalt($value)
+	{
+		$this->_secretSalt = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress auth salt.
+	 * @return string The auth salt
+	 */
+	public function getAuthSalt()
+	{
+		return $this->_authSalt;
+	}
+
+	/**
+	 * Sets the WordPress auth salt.
+	 * @param string $value The auth salt
+	 */
+	public function setAuthSalt($value)
+	{
+		$this->_authSalt = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress secure auth salt.
+	 * @return string The secure auth salt
+	 */
+	public function getSecureAuthSalt()
+	{
+		return $this->_secureAuthSalt;
+	}
+
+	/**
+	 * Sets the WordPress secure auth salt.
+	 * @param string $value The secure auth salt
+	 */
+	public function setSecureAuthSalt($value)
+	{
+		$this->_secureAuthSalt = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress logged in salt.
+	 * @return string The logged in salt
+	 */
+	public function getLoggedInSalt()
+	{
+		return $this->_loggedInSalt;
+	}
+
+	/**
+	 * Sets the WordPress logged in salt.
+	 * @param string $value The logged in salt
+	 */
+	public function setLoggedInSalt($value)
+	{
+		$this->_loggedInSalt = TPropertyValue::ensureString($value);
+	}
+
+	/**
+	 * Gets the WordPress nonce salt.
+	 * @return string The nonce salt
+	 */
+	public function getNonceSalt()
+	{
+		return $this->_nonceSalt;
+	}
+
+	/**
+	 * Sets the WordPress nonce salt.
+	 * @param string $value The nonce salt
+	 */
+	public function setNonceSalt($value)
+	{
+		$this->_nonceSalt = TPropertyValue::ensureString($value);
+	}
+
+
 	public function dyPreInit($config)
 	{
 		// Load the WordPress Parameters
