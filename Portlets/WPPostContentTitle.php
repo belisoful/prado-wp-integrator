@@ -10,7 +10,7 @@
 
 namespace PradoWpIntegrator\Portlets;
 
-require '../src/composer.php';
+require 'src/composer.php';
 
 use Prado\Web\UI\WebControls\TLabel;
 use Prado\Prado;
