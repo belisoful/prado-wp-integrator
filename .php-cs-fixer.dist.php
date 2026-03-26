@@ -6,7 +6,7 @@ use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
 $finder = Finder::create()
-    ->exclude('build/')
+    ->exclude('.git/')
     ->exclude('docs/')
     ->exclude('tests/')
     ->exclude('vendor/')

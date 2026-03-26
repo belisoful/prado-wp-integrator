@@ -6,9 +6,8 @@
  * the right package in unit test and code coverage reports.
  */
 
-echo("\n     *****   HERE  ******\n\n");
  require_once(__DIR__ . '/../../vendor/autoload.php');
- require_once(__DIR__ . '/../../framework/Prado.php');
+ require_once(__DIR__ . '/../../src/composer.php');
 
 // Project Includes
 //   None.
