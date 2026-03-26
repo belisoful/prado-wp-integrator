@@ -4,6 +4,10 @@
 
 This PRADO module integrates WordPress into PRADO applications, providing access to WordPress content and users within PRADO applications.
 
+# Experimental Code
+* This has not been tested with current versions of WordPress (since years ago).
+* You will need to include the WordPress Directory in PRADO, and link this plugin to "wp-load.php" in your WordPress installation or copied from a remote.
+
 ## Features
 * Access to WordPress posts and pages
 * WordPress user authentication
