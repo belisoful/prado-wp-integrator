@@ -90,7 +90,7 @@ In order to run tests, first clone the PRADO WordPress Integrator repository and
 ```
 git clone https://github.com/belisoful/prado-wp-integrator.git
 cd prado-wp-integrator
-composer install
+composer upgrade
 ```
 
 Now you are ready to run tests; a phpunit configuration file is provided, to run the tests just execute
