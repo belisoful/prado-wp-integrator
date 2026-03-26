@@ -13,7 +13,7 @@ class WPTemplateTest extends TestCase
 {
     public function testConstructor()
     {
-        $template = new WPTemplate('test content');
+        $template = new WPTemplate('test content', '/tmp');
         $this->assertInstanceOf(WPTemplate::class, $template);
         $this->assertInstanceOf(TTemplate::class, $template);
     }

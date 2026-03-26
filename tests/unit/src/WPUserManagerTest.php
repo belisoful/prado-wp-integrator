@@ -22,7 +22,7 @@ class WPUserManagerTest extends TestCase
         $userManager = new WPUserManager();
         $module = $this->createMock(WPIntegratorModule::class);
         
-        $userManager->setManager($module);
-        $this->assertEquals($module, $userManager->getManager());
+        $userManager->setPluginModule($module);
+        $this->assertEquals($module, $userManager->getPluginModule());
     }
 }

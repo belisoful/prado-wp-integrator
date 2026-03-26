@@ -22,7 +22,7 @@ class WPAuthManagerTest extends TestCase
         $authManager = new WPAuthManager();
         $module = $this->createMock(WPIntegratorModule::class);
         
-        $authManager->setManager($module);
-        $this->assertEquals($module, $authManager->getManager());
+        $authManager->setPluginModule($module);
+        $this->assertEquals($module, $authManager->getPluginModule());
     }
 }

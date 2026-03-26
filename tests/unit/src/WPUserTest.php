@@ -1,9 +1,10 @@
 <?php
 
-namespace PradoWpIntegrator\Test;
+//namespace PradoWpIntegrator\Test;
 
 use PHPUnit\Framework\TestCase;
 use PradoWpIntegrator\WPUser;
+use PradoWpIntegrator\WPUserManager;
 use Prado\Security\IUserManager;
 
 /**
@@ -13,7 +14,11 @@ class WPUserTest extends TestCase
 {
     public function testConstructor()
     {
-        $this->markTestSkipped('WPUser requires a UserManager to be constructed');
+        $userManager = new WPUserManager();
+        $user = new WPUser($userManager);
+        
+        $this->assertNotNull($user);
+        $this->assertEquals($userManager, $user->getManager());
     }
 
     public function testLoad()
@@ -42,13 +47,15 @@ class WPUserTest extends TestCase
 
     public function testValidateUser()
     {
-        $user = $this->createMock(WPUser::class);
+        $userManager = new WPUserManager();
+        $user = new WPUser($userManager);
         $this->assertFalse($user->validateUser('testuser', 'password'));
     }
 
     public function testCreateUser()
     {
-        $user = $this->createMock(WPUser::class);
+        $userManager = new WPUserManager();
+        $user = new WPUser($userManager);
         $this->assertNull($user->createUser('testuser'));
     }
 }
