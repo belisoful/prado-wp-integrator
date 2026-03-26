@@ -32,7 +32,7 @@ Just create a composer.json file for your project:
 ```JSON
 {
   "require": {
-    "belisoful/prado-wp-integrator": "^>=0.0.1"
+    "belisoful/prado-wp-integrator": "^0.0.1"
   }
 }
 ```
