@@ -15,7 +15,9 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"PradoWpIntegrator\\": "src"
+			"PradoWpIntegrator\\": "src",
+			"PradoWpIntegrator\\Portlets\\": "Portlets",
+			"PradoWpIntegrator\\Pages\\": "Pages"
 		}
 	},
 	"repositories": [
