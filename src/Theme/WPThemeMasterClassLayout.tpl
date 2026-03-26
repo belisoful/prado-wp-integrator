@@ -1,0 +1,1 @@
+<com:TForm><com:TContentPlaceHolder ID=<%= Prado::getApplication()->getParameters()->itemAt('PluginContentId') %> /></com:TForm>
