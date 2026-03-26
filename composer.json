@@ -31,6 +31,23 @@
 		"php": ">=7.4.0",
 		"pradosoft/prado" : ">=4.2.0"
 	},
+	"require-dev" : {
+		"phpunit/phpunit" : "^10",
+		"phpdocumentor/shim": "^3",
+		"friendsofphp/php-cs-fixer": "^3.94",
+		"phpstan/phpstan": "^2.1"
+	},
+	"config": {
+		"platform": {
+			"php": "8.1"
+		},
+		"allow-plugins": {
+			"phpdocumentor/shim": true
+		}
+	},
+	"scripts": {
+		"unittest": "vendor/bin/phpunit --testsuite unit"
+	},
 	"extra": {
 		"bootstrap": "PradoWpIntegrator\\WPIntegratorModule"
 	}
