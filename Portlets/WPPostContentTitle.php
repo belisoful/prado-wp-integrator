@@ -27,17 +27,17 @@ class WPPostContentTitle extends TLabel
 {
 	/**
 	 * Gets the post ID.
-	 * 
+	 *
 	 * @return string The post ID
 	 */
 	public function getPostId()
 	{
 		return $this->getViewState('PostId', '');
 	}
-	
+
 	/**
 	 * Sets the post ID.
-	 * 
+	 *
 	 * @param string $value The post ID
 	 * @return void
 	 */
@@ -45,23 +45,24 @@ class WPPostContentTitle extends TLabel
 	{
 		$this->setViewState('PostId', $value, '');
 	}
-	
+
 	/**
 	 * Writes the difference in time that the application started to the moment of this method call.
-	 * 
-	 * @param TTextWriter $writer the writer used for the rendering output
+	 *
+	 * @param \Prado\IO\TTextWriter $writer the writer used for the rendering output
 	 * @return void
 	 */
 	public function renderContents($writer)
 	{
 		$module = $this->getPluginModule();
 		Prado::trace("Loading WordPress template " . get_class($this), '\Prado\Web\UI\TTemplateControl');
-		
+
 		$post = $module->getWPPost($this->getPostId());
-		
-		//post cannot be password protected, must be published, 
-		if($post->getStatus() == 'publish' && !$post->getHasPassword() && ($post->getType() == 'post' || $post->getType() == 'page'))
+
+		//post cannot be password protected, must be published,
+		if ($post->getStatus() == 'publish' && !$post->getHasPassword() && ($post->getType() == 'post' || $post->getType() == 'page')) {
 			$writer->write($post->getTitle());
-		
+		}
+
 	}
 }

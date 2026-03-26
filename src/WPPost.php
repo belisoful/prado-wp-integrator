@@ -34,7 +34,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Constructor.
-	 * 
+	 *
 	 * @param array $data The post data
 	 * @param array $meta The post meta data
 	 * @return void
@@ -48,7 +48,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post ID.
-	 * 
+	 *
 	 * @return int The post ID
 	 */
 	public function getId()
@@ -58,7 +58,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post author ID.
-	 * 
+	 *
 	 * @return int The post author ID
 	 */
 	public function getAuthor()
@@ -68,7 +68,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post date.
-	 * 
+	 *
 	 * @return string The post date
 	 */
 	public function getDate()
@@ -78,7 +78,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post date in GMT.
-	 * 
+	 *
 	 * @return string The post date in GMT
 	 */
 	public function getDateGMT()
@@ -88,7 +88,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post content.
-	 * 
+	 *
 	 * @return string The post content
 	 */
 	public function getContent()
@@ -98,7 +98,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post title.
-	 * 
+	 *
 	 * @return string The post title
 	 */
 	public function getTitle()
@@ -108,7 +108,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post excerpt.
-	 * 
+	 *
 	 * @return string The post excerpt
 	 */
 	public function getExcerpt()
@@ -118,7 +118,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post status.
-	 * 
+	 *
 	 * @return string The post status
 	 */
 	public function getStatus()
@@ -128,7 +128,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the comment status.
-	 * 
+	 *
 	 * @return string The comment status
 	 */
 	public function getCommentStatus()
@@ -138,7 +138,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the ping status.
-	 * 
+	 *
 	 * @return string The ping status
 	 */
 	public function getPingStatus()
@@ -148,7 +148,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Checks if the post has a password.
-	 * 
+	 *
 	 * @return bool Whether the post has a password
 	 */
 	public function getHasPassword()
@@ -158,7 +158,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Checks if the provided password matches the post password.
-	 * 
+	 *
 	 * @param string $password The password to check
 	 * @return bool Whether the password matches
 	 */
@@ -169,7 +169,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post name.
-	 * 
+	 *
 	 * @return string The post name
 	 */
 	public function getName()
@@ -179,7 +179,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post modified date.
-	 * 
+	 *
 	 * @return string The post modified date
 	 */
 	public function getModified()
@@ -189,7 +189,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post modified date in GMT.
-	 * 
+	 *
 	 * @return string The post modified date in GMT
 	 */
 	public function getModifiedGMT()
@@ -199,7 +199,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post parent ID.
-	 * 
+	 *
 	 * @return int The post parent ID
 	 */
 	public function getParent()
@@ -209,7 +209,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post GUID.
-	 * 
+	 *
 	 * @return string The post GUID
 	 */
 	public function getGUID()
@@ -219,7 +219,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post type.
-	 * 
+	 *
 	 * @return string The post type
 	 */
 	public function getType()
@@ -229,7 +229,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the post mime type.
-	 * 
+	 *
 	 * @return string The post mime type
 	 */
 	public function getMimeType()
@@ -239,7 +239,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets the comment count.
-	 * 
+	 *
 	 * @return int The comment count
 	 */
 	public function getCommentCount()
@@ -249,7 +249,7 @@ class WPPost extends \Prado\TApplicationComponent
 
 	/**
 	 * Gets a meta value by key.
-	 * 
+	 *
 	 * @param string $key The meta key
 	 * @return mixed The meta value or null if not found
 	 */

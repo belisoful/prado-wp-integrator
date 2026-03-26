@@ -62,6 +62,7 @@ class WPUser extends TDbUser
 	 */
 	public function __get($key)
 	{
+		$value = null;
 		if (isset($this->_data[$key])) {
 			$value = $this->_data[$key];
 		} elseif (isset($this->_meta[$key])) {
@@ -103,8 +104,8 @@ class WPUser extends TDbUser
 	 * The default implementation simply returns null, meaning no user instance can be created
 	 * from the given cookie.
 	 *
-	 * @param THttpCookie $cookie the cookie storing user authentication information
-	 * @return TDbUser the user instance generated based on the cookie auth data, null if the cookie does not have valid auth data.
+	 * @param \Prado\Web\THttpCookie $cookie the cookie storing user authentication information
+	 * @return \Prado\Security\TDbUser the user instance generated based on the cookie auth data, null if the cookie does not have valid auth data.
 	 * @see saveUserToCookie
 	 */
 	public function createUserFromCookie($cookie)
@@ -121,7 +122,8 @@ class WPUser extends TDbUser
 		if ($expiration < time()) {
 			return null;
 		}
-		$pluginModule = $this->getManager()->getManager();
+		$userManager = $this->getManager();
+		$pluginModule = $userManager->getManager();
 		$user = $pluginModule->get_user_by('login', $username);
 		if (!$user) {
 			return null;
@@ -149,7 +151,7 @@ class WPUser extends TDbUser
 	/**
 	 * Saves necessary auth data into a cookie.
 	 *
-	 * @param THttpCookie $cookie the cookie to store the user auth information
+	 * @param \Prado\Web\THttpCookie $cookie the cookie to store the user auth information
 	 * @see createUserFromCookie
 	 * @return void
 	 */

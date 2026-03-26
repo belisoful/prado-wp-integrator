@@ -65,11 +65,11 @@ class WPUserManager extends TDbUserManager
 		$this->_pluginModule = $manager;
 	}
 
-	
+
 	/**
 	 * Returns a user instance given the user name.
 	 * @param null|string $username user name, null if it is a guest.
-	 * @return TUser the user instance, null if the specified username is not in the user database.
+	 * @return \Prado\Security\TUser the user instance, null if the specified username is not in the user database.
 	 */
 	public function getUser($username = null)
 	{
