@@ -1,12 +1,10 @@
 {
 	"name": "belisoful/prado-wp-integrator",
-	"version": "v0.0.1",
-	"version_normalized": "0.0.1",
-	"description": "Integrates Wordpress into PRADO",
-	"license": "MIT License",
 	"type": "prado4-extension",
+	"description": "Integrates Wordpress into PRADO",
 	"keywords": [ "prado", "wordpress", "integration", "extension"],
 	"homepage": "https://github.com/belisoful/prado-wp-integrator",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Brad Anderson",
@@ -15,7 +13,6 @@
 			"homepage": "https://github.com/belisoful"
 		}
 	],
-	"notification-url": "https://packagist.org/downloads/",
 	"autoload": {
 		"psr-4": {
 			"PradoWpIntegrator\\": "src"
