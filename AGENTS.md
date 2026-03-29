@@ -44,9 +44,13 @@
   - `@param` for parameters
   - `@return` for return values  
   - `@throws` for exceptions
-  - `@since` to indicate version
-- Files must have a docblock at the top with class description
+- Files must have a clear, comprehensive, and extensive docblock at the top with class description with:
+  - Examples, where necessary
+  - `@author` for attribution
+  - `@since` for version
+  - `@method` for dynamic methods with prefix 'dy-'; which are called (on "$this->dy-") but not defined.
 - Inline comments should be in English and start with `//`
+- Use the next release version when adding new files, methods, or classes with "@since" in their docblock
 
 ### Error Handling
 - Use try/catch blocks for operations that can fail
@@ -67,11 +71,12 @@
 - Data components should support `TActiveRecord` pattern
 - All UI controls should have proper template support and state management
 - All changes must be backward compatible.
-- All commits must succeed: no php compile errors, phpstan, unit test, and php-cs-fixer
-- The current version is 0.0.1.
+- All changes must be backward compatible- A full check consists of the 4 checks (in order): php compile, php-cs-fixer, phpstan, composer unittest (must all pass successfully)
+- A full check must be done for code to be ready for git commit.
+- The current version is 0.0.1. The next release version is 0.0.2
 
 ## Testing Guidelines
-- The testing framework is "phpunit".
+- The testing platform is "phpunit".
 - All new code must include unit tests
 - Test both typical and edge cases
 - Test error conditions and exception handling
@@ -84,8 +89,9 @@
 - PHP extensions: ctype, dom, intl, json, pcre, spl (required)
 - Optional extensions for additional features: apcu, mbstring, openssl, pdo, soap, xsl, zlib
 - Composer for dependency management
-- Required dependencies --dev: phpstan/phpstan, friendsofphp/php-cs-fixer
-- PRADO WP Integrator is a PRADO Module Plugin within the PRADO 4.3 Framework.
+- Required developer dependencies: phpunit/phpunit, phpstan/phpstan, friendsofphp/php-cs-fixer
+- Presume that the dependencies are installed, unless running them fails
+- PRADO WP Integrator is a PRADO Plugin Module within the PRADO 4.3 Framework.
 
 ## Cursor/Copilot Instructions
 No specific Cursor or Copilot rules currently defined for this project.
@@ -93,9 +99,9 @@ No specific Cursor or Copilot rules currently defined for this project.
 # PRADO Framework Agent Safeguards --  
 Between the next brackets, it shall be required without exception:
 {
-- Do not execute the following "git" commands without asking the developer to approve first: clone, mv, restore, rm, branch, add, commit, merge, rebase, reset, pull, push, fetch
+- Do not execute the following "git" commands without asking the developer to approve first: clone, checkout, mv, restore, rm, branch, add, commit, merge, rebase, reset, pull, push, fetch
 }
 
 # Related projects and directories
-- FRADO Framework is found at "../prado.master/".  Do not make any changes to the PRADO Framework master directory or any of its files.
+- FRADO Framework is found at "vendor/pradosoft/prado/framework/".  Do not make any changes to the "vendor/*" directories, sub-directories, or files there in.
 - Wordpress CMS is found at "../wordpress-6.9.4/".  Do not make any changes to the Wordpress CMS Directory or any of its files.
