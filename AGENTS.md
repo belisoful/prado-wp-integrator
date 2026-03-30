@@ -9,7 +9,7 @@
 - **Single Test Method**: `vendor/bin/phpunit --testsuite unit tests/unit/Path/To/TestFile.php::testMethodName`
 
 ### Linting and Code Analysis
-- **PHPStan Analysis**: `vendor/bin/phpstan analyse Pages/ Portlets/ src/ --memory-limit=512M`
+- **PHPStan Analysis**: `vendor/bin/phpstan analyse src/ --memory-limit=512M`
 - **PHP CS Fixer**: `vendor/bin/php-cs-fixer fix --dry-run` (check)
 - **PHP CS Fixer (Fix)**: `vendor/bin/php-cs-fixer fix` (apply fixes)
 

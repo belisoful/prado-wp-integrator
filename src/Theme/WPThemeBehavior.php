@@ -15,6 +15,7 @@ use Prado\Util\TBehavior;
 use Prado\TService;
 use Prado\Web\UI\WebControls\THead;
 use Prado\Web\UI\TForm;
+use Prado\Web\Services\TPageService;
 
 /**
  * WPThemeBehavior attaches to the TTheme class for doing screen
@@ -50,6 +51,7 @@ class WPThemeBehavior extends TBehavior
 		if ($this->isWordPressTheme()) {
 			$service = Prado::getApplication()->getService();
 			if ($service->isa('\Prado\Web\Services\TPageService')) {
+				$service = (TPageService)$service;
 				$service->getRequestedPage()->attachEventHandler('onInitComplete', [$this, 'installWPTheme'], -19.9);
 			}
 		}

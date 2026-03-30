@@ -10,7 +10,7 @@
 
 namespace PradoWpIntegrator\Pages\Test;
 
-require '../../src/composer.php';
+require '../../composer.php';
 
 use Prado\Web\UI\TPage;
 

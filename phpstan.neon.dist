@@ -5,8 +5,6 @@ parameters:
         - tests/test_tools/phpstan-bootstrap.php
     paths:
         - src
-        - Portlets
-        - Pages
 services:
     -
         class: Prado\PHPStan\DynamicMethodsClassReflectionExtension
