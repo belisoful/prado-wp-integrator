@@ -10,6 +10,7 @@ $finder = Finder::create()
     ->exclude('docs/')
     ->exclude('tests/')
     ->exclude('vendor/')
+    ->exclude('wordpress/')
     ->in(__DIR__);
 
 $config = new PhpCsFixer\Config();
@@ -19,7 +20,7 @@ $config
     ->setLineEnding("\n")
     ->setRules([
         '@PSR12' => true,
-        '@PHP82Migration' => true,
+        '@PHP8x2Migration' => true,
         'align_multiline_comment' => true,
         'binary_operator_spaces' => true,
         'blank_line_after_namespace' => true,

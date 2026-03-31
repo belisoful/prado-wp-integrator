@@ -15,6 +15,9 @@ atlassian-ide-plugin.xml
 # Composer stuff
 vendor/*
 
+# WordPress stuff
+/wordpress
+
 #OSX
 .DS_Store
 /nbproject
