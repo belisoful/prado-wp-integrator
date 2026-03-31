@@ -6,6 +6,17 @@
  * the right package in unit test and code coverage reports.
  */
  
+  $wpRelativePath = '../../wordpress/';
+  $wpRealPath = realpath(__DIR__ . DIRECTORY_SEPARATOR . $wpRelativePath) . DIRECTORY_SEPARATOR;
+  
+ define('ABSPATH', $wpRealPath);
+ 
+ $wpBootstrapFile = 'wp-settings.php';
+ //require_once($wpRealPath . $wpBootstrapFile);
+ 
+ 
+ return;
+ 
 //$_wordpress_directory = '/../wordpress/wp-load.php';
 //$_wordpress_directory = '/../../../wordpress-6.9.4/wp-load.php';
 if ( ! defined( 'COOKIEHASH' ) ) {
