@@ -8,7 +8,7 @@
  * @license https://github.com/pradosoft/prado/blob/master/LICENSE
  */
 
-namespace WordPressThemer;
+namespace PradoWpIntegrator\Theme;
 
 use Prado\Web\UI\TTheme;
 use Prado\Util\TPluginModule;
@@ -41,7 +41,7 @@ class WPThemeModule extends TPluginModule
 		parent::init($config);
 		$this->getApplication()->attachEventHandler('onInitComplete', [$this, 'attachServiceHandler']);
 
-		TTheme::attachClassBehavior(self::BEHAVIOR_NAME, 'WPThemeBehavior');
+		TTheme::attachClassBehavior(self::BEHAVIOR_NAME, WPThemeBehavior::class);
 	}
 
 	public function attachServiceHandler($sender, $param)
@@ -64,7 +64,7 @@ class WPThemeModule extends TPluginModule
 	public function installWPTheme($page, $param)
 	{
 		if (($theme = $page->getTheme()) && $theme->isWordPressTheme()) {
-			$page->setMasterClass('WPThemeMasterClassLayout');
+			$page->setMasterClass(WPThemeMasterClassLayout::class);
 		}
 	}
 

@@ -5,6 +5,11 @@
 	  <directory suffix="Test.php">./tests/unit</directory>
 	</testsuite>
   </testsuites>
+  <source>
+	<include>
+	  <directory suffix=".php">./src</directory>
+	</include>
+  </source>
   <logging>
 	<testdoxHtml outputFile="./build/tests/index.html"/>
   </logging>

@@ -63,7 +63,7 @@ class WPPost extends \Prado\TApplicationComponent
 	 */
 	public function getAuthor()
 	{
-		return $this->_postData['ID'];
+		return $this->_postData['post_author'];
 	}
 
 	/**

@@ -2,7 +2,12 @@
 	"name": "belisoful/prado-wp-integrator",
 	"type": "prado4-extension",
 	"description": "Integrates Wordpress into PRADO",
-	"keywords": [ "prado", "wordpress", "integration", "extension"],
+	"keywords": [
+		"prado",
+		"wordpress",
+		"integration",
+		"extension"
+	],
 	"homepage": "https://github.com/belisoful/prado-wp-integrator",
 	"license": "MIT",
 	"authors": [
@@ -18,6 +23,11 @@
 			"PradoWpIntegrator\\": "src"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"PradoWpIntegrator\\TestTools\\": "tests/test_tools/"
+		}
+	},
 	"repositories": [
 		{
 			"type": "composer",
@@ -26,16 +36,18 @@
 	],
 	"require": {
 		"php": ">=7.4.0",
-		"pradosoft/prado" : "^4.3",
-		"johnpbloch/wordpress": "^6.9"
+		"pradosoft/prado": "^4.3"
 	},
-	"require-dev" : {
-		"phpunit/phpunit" : "^10",
+	"require-dev": {
+		"phpunit/phpunit": "^10",
 		"phpdocumentor/shim": "^3",
 		"friendsofphp/php-cs-fixer": "^3.94",
 		"phpstan/phpstan": "^2.1",
-		"php-stubs/wordpress-stubs": "*",
-		"johnpbloch/wordpress": "*"
+		"php-stubs/wordpress-stubs": "^7.0",
+		"roots/wordpress": "^7.0"
+	},
+	"suggest": {
+		"roots/wordpress": "Installs WordPress core via Composer (core only, no bundled themes); point WPDirectory at the install dir"
 	},
 	"config": {
 		"platform": {
@@ -43,13 +55,15 @@
 		},
 		"allow-plugins": {
 			"phpdocumentor/shim": true,
-			"johnpbloch/wordpress-core-installer": true
+			"roots/wordpress-core-installer": true
 		}
 	},
 	"scripts": {
-		"unittest": "vendor/bin/phpunit --testsuite unit"
+		"unittest": "vendor/bin/phpunit --testsuite unit",
+		"coverage": "php tests/test_tools/coverage.php"
 	},
 	"extra": {
-		"bootstrap": "PradoWpIntegrator\\WPIntegratorModule"
+		"bootstrap": "PradoWpIntegrator\\WPIntegratorModule",
+		"wordpress-install-dir": "wordpress"
 	}
 }

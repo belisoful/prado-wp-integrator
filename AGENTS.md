@@ -7,6 +7,8 @@
 - **Functional Tests**: `composer functionaltest` - runs all functional tests  
 - **Single Test File**: `vendor/bin/phpunit --testsuite unit tests/unit/Path/To/TestFile.php`
 - **Single Test Method**: `vendor/bin/phpunit --testsuite unit tests/unit/Path/To/TestFile.php::testMethodName`
+- **Test against an existing WordPress install**: `WP_DIR=/path/to/wordpress composer unittest` (default: `wordpress/` installed by `roots/wordpress` in require-dev; see `src/composer.php`)
+- **Coverage**: `composer coverage` - runs the unit suite with coverage, merges the coverage of test child processes, and writes `build/coverage/{clover.xml,html}`. Requires Xdebug or PCOV. The suite covers 100% of `src/`; keep it there.
 
 ### Linting and Code Analysis
 - **PHPStan Analysis**: `vendor/bin/phpstan analyse src/ --memory-limit=512M`
@@ -78,6 +80,9 @@
 ## Testing Guidelines
 - The testing platform is "phpunit".
 - All new code must include unit tests
+- Tests extend `PradoWpIntegrator\TestTools\WPTestCase`, which builds a throwaway PRADO application over an in-memory SQLite database seeded with a minimal WordPress schema (`tests/test_tools/WPTestCase.php`).
+- Anything that defines a constant, writes a static, or installs a class behavior must be marked `#[RunInSeparateProcess]` and `#[PreserveGlobalState(false)]`; PHPUnit merges the coverage of those processes.
+- Behaviour that cannot exist in the PHPUnit process - the theme shims WordPress itself supplies, the include-time resolution in `src/composer.php` - runs through `PradoWpIntegrator\TestTools\ChildProcess`; `composer coverage` merges what those children record.
 - Test both typical and edge cases
 - Test error conditions and exception handling
 - Use mock objects where appropriate

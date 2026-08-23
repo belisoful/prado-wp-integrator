@@ -6,7 +6,7 @@ This PRADO module integrates WordPress into PRADO applications, providing access
 
 # Experimental Code
 * This has not been tested with current versions of WordPress (since years ago).
-* You will need to include the WordPress Directory in PRADO, and link this plugin to "wp-load.php" in your WordPress installation or copied from a remote.
+* WordPress core is not a Composer dependency of this package. Point the module's `WPDirectory` property at an existing WordPress installation (the directory containing `wp-load.php`), or install core into your project with `composer require roots/wordpress` (core only, no bundled themes) and point `WPDirectory` at its install directory (default `wordpress/`).
 
 ## Features
 * Access to WordPress posts and pages
@@ -43,6 +43,15 @@ Just create a composer.json file for your project:
 
 The PRADO WordPress Integrator is a PRADO 7.4+ extension to plug in new functionality directly into a PRADO application.
 
+### Development / testing against WordPress
+
+The test suite and PHPStan bootstrap locate WordPress in this order:
+
+1. the `WP_DIR` environment variable — an existing WordPress install, e.g. `WP_DIR=/var/www/wordpress composer unittest`;
+2. `wordpress/` in the repository root, installed by `roots/wordpress` (a `require-dev` dependency) on `composer install`.
+
+`roots/wordpress` ships no `wp-content/`; when the resolved install has none, tests use the stub content directory in `tests/fixtures/wp-content` (which contains a minimal theme) as `WP_CONTENT_DIR`.
+
 ## Documentation
 
 The [Tutorial](https://github.com/belisoful/prado-wp-integrator)
@@ -61,6 +70,24 @@ To use this module:
          WPDbParameterID="wpdbparameter"
          DatabasePrefix="wp_"/>
 ```
+
+`WPDirectory` is the link to WordPress: set it to the directory containing
+`wp-load.php`.
+
+### Examples
+
+The [examples](examples/) directory contains a sample page (`Pages/WPTest`)
+that renders a WordPress post through the `WPPostContent` portlets. Copy it into
+your application's page directory; it is not part of the autoloaded package
+source and is excluded from distribution archives.
+
+### WordPress themes without WordPress
+
+`WPThemeModule` can render a WordPress theme without loading WordPress: the
+theme's `functions.php` and `index.php` are executed against the shims in
+`src/Theme/WPFunctions.php`. Every shim is guarded with `function_exists()` /
+`class_exists()`, so a real WordPress installation - or a partially loaded one -
+always takes precedence.
 
 ## Contributing
 
@@ -88,7 +115,7 @@ Starting point:
 
 ## Testing
 
-Not yet Implemented: PRADO WordPress Integrator uses phpunit (https://phpunit.de/) for unit testing.
+PRADO WordPress Integrator uses phpunit (https://phpunit.de/) for unit testing.
 
 In order to run tests, first clone the PRADO WordPress Integrator repository and have composer install the needed development libraries:
 ```
@@ -98,6 +125,13 @@ composer upgrade
 ```
 
 Now you are ready to run tests; a phpunit configuration file is provided, to run the tests just execute
-```composer unittest``` to run unit tests and
+```composer unittest``` to run unit tests.
 
 Test results will be saved in in the `build/tests/` directory.
+
+To run the suite with code coverage (requires Xdebug or PCOV):
+```
+composer coverage
+```
+This merges the coverage recorded by test child processes into the PHPUnit
+report and writes `build/coverage/clover.xml` and `build/coverage/html/`.

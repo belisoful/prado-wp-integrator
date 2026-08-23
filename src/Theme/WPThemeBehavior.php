@@ -8,7 +8,7 @@
  * @license https://github.com/pradosoft/prado/blob/master/LICENSE
  */
 
-namespace WordPressThemer;
+namespace PradoWpIntegrator\Theme;
 
 use Prado\Prado;
 use Prado\Util\TBehavior;
@@ -50,8 +50,8 @@ class WPThemeBehavior extends TBehavior
 		parent::attach($owner);
 		if ($this->isWordPressTheme()) {
 			$service = Prado::getApplication()->getService();
-			if ($service->isa('\Prado\Web\Services\TPageService')) {
-				$service = (TPageService)$service;
+			if ($service && $service->isa('\Prado\Web\Services\TPageService')) {
+				/** @var TPageService $service */
 				$service->getRequestedPage()->attachEventHandler('onInitComplete', [$this, 'installWPTheme'], -19.9);
 			}
 		}
@@ -72,7 +72,8 @@ class WPThemeBehavior extends TBehavior
 		$GLOBALS['wp_theme_object'] = $this->getOwner();
 
 		//Include all the theme WP functions that are replicated to grab the html
-		include 'WPFunctions.php';
+		//The shims are guarded, so a loaded WordPress takes precedence.
+		include_once __DIR__ . DIRECTORY_SEPARATOR . 'WPFunctions.php';
 		if (is_file($path . DIRECTORY_SEPARATOR . 'functions.php')) {
 			include $path . DIRECTORY_SEPARATOR . 'functions.php';
 		}

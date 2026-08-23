@@ -3,183 +3,133 @@
 namespace PradoWpIntegrator\Test;
 
 use PHPUnit\Framework\TestCase;
+use Prado\TComponent;
 use PradoWpIntegrator\WPPost;
 
 /**
- * Test class for WPPost
+ * Test class for WPPost.
  */
 class WPPostTest extends TestCase
 {
+    /**
+     * A complete row as the module reads it out of wp_posts.
+     *
+     * @return array<string, mixed> the post row
+     */
+    private function postData(): array
+    {
+        return [
+            'ID' => 42,
+            'post_author' => 7,
+            'post_date' => '2023-01-01 12:00:00',
+            'post_date_gmt' => '2023-01-01 20:00:00',
+            'post_content' => 'This is test content',
+            'post_title' => 'Test Post',
+            'post_excerpt' => 'Test excerpt',
+            'post_status' => 'publish',
+            'comment_status' => 'open',
+            'ping_status' => 'closed',
+            'post_password' => '',
+            'post_name' => 'test-post',
+            'post_modified' => '2023-02-02 12:00:00',
+            'post_modified_gmt' => '2023-02-02 20:00:00',
+            'post_parent' => 3,
+            'guid' => 'http://example.com/?p=42',
+            'post_type' => 'post',
+            'post_mime_type' => 'text/html',
+            'comment_count' => 5,
+        ];
+    }
+
+    /**
+     * @param array $overrides columns to override
+     * @param array $meta the post meta
+     * @return WPPost the post under test
+     */
+    private function makePost(array $overrides = [], array $meta = []): WPPost
+    {
+        return new WPPost($overrides + $this->postData(), $meta);
+    }
+
     public function testConstructor()
     {
-        $postData = [
-            'ID' => 1,
-            'post_title' => 'Test Post',
-            'post_content' => 'This is test content',
-            'post_date' => '2023-01-01 00:00:00'
-        ];
-        $metaData = [
-            'custom_field' => 'custom_value'
-        ];
-        $post = new WPPost($postData, $metaData);
-        
+        $post = $this->makePost([], ['custom_field' => 'custom_value']);
+
         $this->assertInstanceOf(WPPost::class, $post);
-        $this->assertEquals(1, $post->getId());
-        $this->assertEquals('Test Post', $post->getTitle());
-        $this->assertEquals('This is test content', $post->getContent());
+        $this->assertInstanceOf(TComponent::class, $post);
     }
 
-    public function testGetId()
+    /**
+     * Every column-backed accessor, as (getter, expected value).
+     *
+     * @return array<string, array{0: string, 1: mixed}> the accessor cases
+     */
+    public static function accessorProvider(): array
     {
-        $postData = ['ID' => 42];
-        $post = new WPPost($postData, []);
-        $this->assertEquals(42, $post->getId());
+        return [
+            'Id' => ['getId', 42],
+            'Author' => ['getAuthor', 7],
+            'Date' => ['getDate', '2023-01-01 12:00:00'],
+            'DateGMT' => ['getDateGMT', '2023-01-01 20:00:00'],
+            'Content' => ['getContent', 'This is test content'],
+            'Title' => ['getTitle', 'Test Post'],
+            'Excerpt' => ['getExcerpt', 'Test excerpt'],
+            'Status' => ['getStatus', 'publish'],
+            'CommentStatus' => ['getCommentStatus', 'open'],
+            'PingStatus' => ['getPingStatus', 'closed'],
+            'Name' => ['getName', 'test-post'],
+            'Modified' => ['getModified', '2023-02-02 12:00:00'],
+            'ModifiedGMT' => ['getModifiedGMT', '2023-02-02 20:00:00'],
+            'Parent' => ['getParent', 3],
+            'GUID' => ['getGUID', 'http://example.com/?p=42'],
+            'Type' => ['getType', 'post'],
+            'MimeType' => ['getMimeType', 'text/html'],
+            'CommentCount' => ['getCommentCount', 5],
+        ];
     }
 
-    public function testGetAuthor()
+    #[\PHPUnit\Framework\Attributes\DataProvider('accessorProvider')]
+    public function testAccessorsReadTheirColumn(string $getter, $expected)
     {
-        $postData = ['ID' => 42];
-        $post = new WPPost($postData, []);
-        $this->assertEquals(42, $post->getAuthor());
+        $this->assertSame($expected, $this->makePost()->{$getter}());
     }
 
-    public function testGetDate()
+    public function testAuthorIsThePostAuthorNotThePostId()
     {
-        $postData = ['post_date' => '2023-01-01 12:00:00'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('2023-01-01 12:00:00', $post->getDate());
+        $post = $this->makePost(['ID' => 42, 'post_author' => 7]);
+
+        $this->assertSame(7, $post->getAuthor());
     }
 
-    public function testGetDateGMT()
+    public function testHasPasswordIsFalseForAnEmptyPassword()
     {
-        $postData = ['post_date_gmt' => '2023-01-01 12:00:00'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('2023-01-01 12:00:00', $post->getDateGMT());
+        $this->assertFalse($this->makePost(['post_password' => ''])->getHasPassword());
     }
 
-    public function testGetContent()
+    public function testHasPasswordIsTrueForAPassword()
     {
-        $postData = ['post_content' => 'Test content'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('Test content', $post->getContent());
+        $this->assertTrue($this->makePost(['post_password' => 'secret'])->getHasPassword());
     }
 
-    public function testGetTitle()
+    public function testCheckPasswordAcceptsTheRightPassword()
     {
-        $postData = ['post_title' => 'Test Title'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('Test Title', $post->getTitle());
+        $this->assertTrue($this->makePost(['post_password' => 'secret'])->getCheckPassword('secret'));
     }
 
-    public function testGetExcerpt()
+    public function testCheckPasswordRejectsTheWrongPassword()
     {
-        $postData = ['post_excerpt' => 'Test excerpt'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('Test excerpt', $post->getExcerpt());
+        $this->assertFalse($this->makePost(['post_password' => 'secret'])->getCheckPassword('wrong'));
     }
 
-    public function testGetStatus()
+    public function testGetMetaReturnsTheValue()
     {
-        $postData = ['post_status' => 'publish'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('publish', $post->getStatus());
+        $post = $this->makePost([], ['custom_field' => 'custom_value']);
+
+        $this->assertSame('custom_value', $post->getMeta('custom_field'));
     }
 
-    public function testGetCommentStatus()
+    public function testGetMetaReturnsNullForAnUnknownKey()
     {
-        $postData = ['comment_status' => 'open'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('open', $post->getCommentStatus());
-    }
-
-    public function testGetPingStatus()
-    {
-        $postData = ['ping_status' => 'open'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('open', $post->getPingStatus());
-    }
-
-    public function testGetHasPassword()
-    {
-        $postData = ['post_password' => ''];
-        $post = new WPPost($postData, []);
-        $this->assertFalse($post->getHasPassword());
-        
-        $postData = ['post_password' => 'secret'];
-        $post = new WPPost($postData, []);
-        $this->assertTrue($post->getHasPassword());
-    }
-
-    public function testGetCheckPassword()
-    {
-        $postData = ['post_password' => 'secret'];
-        $post = new WPPost($postData, []);
-        $this->assertTrue($post->getCheckPassword('secret'));
-        $this->assertFalse($post->getCheckPassword('wrong'));
-    }
-
-    public function testGetName()
-    {
-        $postData = ['post_name' => 'test-post'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('test-post', $post->getName());
-    }
-
-    public function testGetModified()
-    {
-        $postData = ['post_modified' => '2023-01-01 12:00:00'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('2023-01-01 12:00:00', $post->getModified());
-    }
-
-    public function testGetModifiedGMT()
-    {
-        $postData = ['post_modified_gmt' => '2023-01-01 12:00:00'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('2023-01-01 12:00:00', $post->getModifiedGMT());
-    }
-
-    public function testGetParent()
-    {
-        $postData = ['post_parent' => 10];
-        $post = new WPPost($postData, []);
-        $this->assertEquals(10, $post->getParent());
-    }
-
-    public function testGetGUID()
-    {
-        $postData = ['guid' => 'http://example.com/test'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('http://example.com/test', $post->getGUID());
-    }
-
-    public function testGetType()
-    {
-        $postData = ['post_type' => 'post'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('post', $post->getType());
-    }
-
-    public function testGetMimeType()
-    {
-        $postData = ['post_mime_type' => 'text/html'];
-        $post = new WPPost($postData, []);
-        $this->assertEquals('text/html', $post->getMimeType());
-    }
-
-    public function testGetCommentCount()
-    {
-        $postData = ['comment_count' => 5];
-        $post = new WPPost($postData, []);
-        $this->assertEquals(5, $post->getCommentCount());
-    }
-
-    public function testGetMeta()
-    {
-        $postData = [];
-        $metaData = ['custom_field' => 'custom_value'];
-        $post = new WPPost($postData, $metaData);
-        $this->assertEquals('custom_value', $post->getMeta('custom_field'));
-        $this->assertNull($post->getMeta('nonexistent_field'));
+        $this->assertNull($this->makePost([], [])->getMeta('no_such_key'));
     }
 }

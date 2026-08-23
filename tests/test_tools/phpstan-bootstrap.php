@@ -1,64 +1,34 @@
 <?php
 /**
- * A few common settings for all unit tests.
+ * PHPStan bootstrap.
  *
- * Also remember do define the @package attribute for your test class to make it appear under
- * the right package in unit test and code coverage reports.
+ * Static analysis uses php-stubs/wordpress-stubs; a WordPress checkout is not
+ * required. ABSPATH is defined for code paths that reference it, using the
+ * same resolution as src/composer.php (WP_DIR env var, then ./wordpress).
+ *
+ * The WordPress cookie constants are defined at runtime by
+ * WPIntegratorModule::initializeWPConstants(), so they are declared here for
+ * the code that reads them.
  */
- 
-  $wpRelativePath = '../../wordpress/';
-  $wpRealPath = realpath(__DIR__ . DIRECTORY_SEPARATOR . $wpRelativePath) . DIRECTORY_SEPARATOR;
-  
- define('ABSPATH', $wpRealPath);
- 
- $wpBootstrapFile = 'wp-settings.php';
- //require_once($wpRealPath . $wpBootstrapFile);
- 
- 
- return;
- 
-//$_wordpress_directory = '/../wordpress/wp-load.php';
-//$_wordpress_directory = '/../../../wordpress-6.9.4/wp-load.php';
-if ( ! defined( 'COOKIEHASH' ) ) {
-    define('COOKIEHASH', '923098902380942840372');
-}
-if ( ! defined( 'LOGGED_IN_COOKIE' ) ) {
-    define( 'LOGGED_IN_COOKIE', 'wordpress_logged_in_' . COOKIEHASH );
+
+require_once(__DIR__ . '/../../src/composer.php');
+
+if (! defined('ABSPATH')) {
+    define('ABSPATH', (PRADO_WP_DIR !== '' ? PRADO_WP_DIR : realpath(__DIR__ . '/../..') . '/wordpress') . '/');
 }
 
-$basePath = realpath(__DIR__ . '/../../../wordpress-6.9.4/');
-
-$directories = [
-    '/wp-includes/class-wp-session-tokens.php',
-    '/wp-includes/plugin.php',
-    ];
- 
-if (php_sapi_name() === 'cli') {
-    if ( ! defined( 'WP_SITEURL' ) ) {
-        define('WP_SITEURL', 'cli');
-    }
-    if (!$basePath) {
-        echo("WARNING: WordPress directory not found, expect errors.\n\n" . __DIR__ . $_wordpress_directory . "\n\n");
-        return;
-    }
-    foreach ($directories as $file) {
-        $file = $basePath . $file;
-        if (file_exists($file)) {
-            include($file);
-        } else {
-            echo("WARNING: WordPress directory not found, expect errors.\n\n" . $file . "\n");
-        }
-    }
-    /*if ($_wordpress_directory && file_exists($autoloader = realpath(__DIR__ . $_wordpress_directory))) {
- 
-        //echo("\n\n" . WP_SITEURL . "\n\n");
-        // include wordpress custom
-        include($autoloader);
-        echo("\nTHERE\n");
-    } else {
-        echo("WARNING: WordPress directory not found, expect errors.\n\n" . __DIR__ . $_wordpress_directory . "\n\n");
-    }*/
+if (! defined('COOKIEHASH')) {
+    define('COOKIEHASH', '');
 }
-
-// Project Includes
-//   None.
+foreach ([
+    'USER_COOKIE' => 'wordpressuser_',
+    'PASS_COOKIE' => 'wordpresspass_',
+    'AUTH_COOKIE' => 'wordpress_',
+    'SECURE_AUTH_COOKIE' => 'wordpress_sec_',
+    'LOGGED_IN_COOKIE' => 'wordpress_logged_in_',
+    'RECOVERY_MODE_COOKIE' => 'wordpress_rec_',
+] as $constant => $prefix) {
+    if (! defined($constant)) {
+        define($constant, $prefix . COOKIEHASH);
+    }
+}

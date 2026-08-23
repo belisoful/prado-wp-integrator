@@ -310,7 +310,7 @@ class WPIntegratorModule extends TDbPluginModule
 		$this->_userManager = new WPUserManager();
 		$this->_userManager->setId($this->getWPUserManagerID());
 		$this->_userManager->setPluginModule($this);
-		$this->_userManager->setUserClass('WPUser');
+		$this->_userManager->setUserClass(WPUser::class);
 		$this->getApplication()->setModule($this->getWPUserManagerID(), $this->_userManager);
 		$this->_userManager->dyPreInit(null);
 
@@ -374,6 +374,9 @@ class WPIntegratorModule extends TDbPluginModule
 		);
 		$cmd->bindParameter(":name", $key, \PDO::PARAM_STR);
 		$value = $cmd->queryRow();
+		if (!is_array($value) || !isset($value['option_value'])) {
+			return null;
+		}
 		$this->_options[$key] = $value['option_value'];
 		return $value['option_value'];
 	}
@@ -403,7 +406,7 @@ class WPIntegratorModule extends TDbPluginModule
 		$cmd->bindParameter(":value", $value, \PDO::PARAM_STR);
 		$userFields = $cmd->queryRow();
 
-		if (!isset($userFields['ID']) && !$userFields['ID']) {
+		if (!is_array($userFields) || empty($userFields['ID'])) {
 			return null;
 		}
 
