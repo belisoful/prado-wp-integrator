@@ -10,8 +10,10 @@
 
 namespace PradoWpIntegrator\Theme;
 
-use Prado\Web\UI\TTheme;
+use Prado\TComponent;
 use Prado\Util\TPluginModule;
+use Prado\Web\Services\TPageService;
+use Prado\Web\UI\TTheme;
 
 /**
  * WPThemeModule class
@@ -47,7 +49,7 @@ class WPThemeModule extends TPluginModule
 	public function attachServiceHandler($sender, $param)
 	{
 		$service = $this->getService();
-		if ($service->isa('Prado\Web\Services\TPageService')) {
+		if ($service instanceof TComponent && $service->isa(TPageService::class)) {
 			$service->attachEventHandler('onPreRunPage', [$this, 'attachPageHandler']);
 		}
 	}

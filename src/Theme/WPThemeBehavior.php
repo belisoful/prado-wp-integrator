@@ -11,8 +11,9 @@
 namespace PradoWpIntegrator\Theme;
 
 use Prado\Prado;
-use Prado\Util\TBehavior;
+use Prado\TComponent;
 use Prado\TService;
+use Prado\Util\TBehavior;
 use Prado\Web\UI\WebControls\THead;
 use Prado\Web\UI\TForm;
 use Prado\Web\Services\TPageService;
@@ -50,7 +51,7 @@ class WPThemeBehavior extends TBehavior
 		parent::attach($owner);
 		if ($this->isWordPressTheme()) {
 			$service = Prado::getApplication()->getService();
-			if ($service && $service->isa('\Prado\Web\Services\TPageService')) {
+			if ($service instanceof TComponent && $service->isa(TPageService::class)) {
 				/** @var TPageService $service */
 				$service->getRequestedPage()->attachEventHandler('onInitComplete', [$this, 'installWPTheme'], -19.9);
 			}
