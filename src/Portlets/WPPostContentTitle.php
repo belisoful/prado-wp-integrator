@@ -14,6 +14,7 @@ require 'src/composer.php';
 
 use Prado\Web\UI\WebControls\TLabel;
 use Prado\Prado;
+use PradoWpIntegrator\WPIntegratorModule;
 
 /**
  * WPPostContentTitle class
@@ -54,6 +55,7 @@ class WPPostContentTitle extends TLabel
 	 */
 	public function renderContents($writer)
 	{
+		/** @var WPIntegratorModule $module */
 		$module = $this->getPluginModule();
 		Prado::trace("Loading WordPress template " . get_class($this), '\Prado\Web\UI\TTemplateControl');
 

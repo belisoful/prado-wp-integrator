@@ -123,6 +123,7 @@ class WPUser extends TDbUser
 			return null;
 		}
 
+		/** @var WPUserManager $userManager */
 		$userManager = $this->getManager();
 		$pluginModule = $userManager->getPluginModule();
 		$user = $pluginModule->get_user_by('login', $username);

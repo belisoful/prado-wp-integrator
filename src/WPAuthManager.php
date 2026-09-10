@@ -22,6 +22,7 @@ use Prado\Security\TDbUser;
  *
  * @author Brad Anderson <belisoful@icloud.com>
  * @since 0.0.1
+ * @todo fork this manager as a behavior for an existing TAuthManager
  */
 class WPAuthManager extends TAuthManager
 {

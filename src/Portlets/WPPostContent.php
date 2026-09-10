@@ -15,6 +15,7 @@ require 'src/composer.php';
 use Prado\Web\UI\TTemplateControl;
 use Prado\TPropertyValue;
 use Prado\Prado;
+use PradoWpIntegrator\WPIntegratorModule;
 use PradoWpIntegrator\WPTemplate;
 
 /**
@@ -55,6 +56,7 @@ class WPPostContent extends TTemplateControl
 	 */
 	protected function loadTemplate()
 	{
+		/** @var WPIntegratorModule $module */
 		$module = $this->getPluginModule();
 
 		Prado::trace("Loading WordPress template " . get_class($this), '\Prado\Web\UI\TTemplateControl');
