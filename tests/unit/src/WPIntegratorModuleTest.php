@@ -237,11 +237,13 @@ class WPIntegratorModuleTest extends WPTestCase
         $module = $this->createModule();
         $module->dyPreInit(null);
         $userManager = $this->app->getModule('wpusermanager');
-        $userManager->init(null);
 
         // the module points the user manager at this package's user class;
         // TDbUserManager::init() fails outright if the class cannot be created
         $this->assertSame(WPUser::class, $userManager->getUserClass());
+
+        $userManager->init(null);
+
         $this->assertInstanceOf(WPUser::class, $userManager->getUserByName('alice'));
     }
 

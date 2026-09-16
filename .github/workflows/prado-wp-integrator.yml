@@ -1,5 +1,20 @@
 name: PRADO WP Integrator
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      prado_version:
+        description: 'PRADO constraint to test against, e.g. 4.4.x-dev for the current branch head'
+        required: false
+        default: ''
+
+# composer.json takes any PRADO from the 4.3 line up, so a plain install floats
+# with the framework. CI pins one build instead, and only moves when this value
+# does. Bump it (and re-run the tests) to adopt a newer framework build.
+env:
+  PRADO_VERSION: '4.4.x-dev#6160b68d2d65efa7d5153f644ab7ee31bd67851a'
+
 jobs:
   wpintegrator:
     name: PRADO WP Integrator
@@ -52,11 +67,14 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}-${{ inputs.prado_version || env.PRADO_VERSION }}
           restore-keys: ${{ runner.os }}-composer-
 
+      - name: Pin PRADO to the build under test
+        run: composer require --no-update pradosoft/prado:"${{ inputs.prado_version || env.PRADO_VERSION }}"
+
       - name: Install Composer dependencies
-        run: composer install --no-progress --prefer-dist --optimize-autoloader
+        run: composer update --no-progress --prefer-dist --optimize-autoloader
 
       - name: Validate code using phpstan
         run: phpstan analyse --memory-limit=1G --error-format=checkstyle | cs2pr

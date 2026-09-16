@@ -18,6 +18,7 @@
 ### Build Commands
 - **Generate Documentation**: `composer gendoc` - generates API documentation
 - **Install Dependencies**: `composer install` - installs all dependencies
+- **PRADO build**: the requirement is permissive (`^4.3@dev`); CI pins one framework build in `PRADO_VERSION` (`.github/workflows/prado-wp-integrator.yml`). Match it locally with `composer require --no-update pradosoft/prado:"<PRADO_VERSION>" && composer update`.
 
 ## Code Style Guidelines
 - "if" has a statement block after.

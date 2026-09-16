@@ -39,16 +39,27 @@ class WPPostContentTest extends WPTestCase
     }
 
     /**
-     * pradosoft/prado 4.3.2 never resolves a control's plugin module (see
-     * WPTestCase::attachPluginModule), so the control reports none until one is
-     * attached. Both portlets depend on it, so this pins the framework
-     * behaviour the workaround is standing in for.
+     * TControl::getPluginModule() matches the control's file against the plugin
+     * path of every plugin module on the application, so a portlet shipped with
+     * this package finds the module on its own. Both portlets depend on it, so
+     * this pins the framework behaviour they rely on.
      */
-    public function testTheControlHasNoPluginModuleUntilItIsAttached()
+    public function testTheControlResolvesThePluginModuleFromTheApplication()
+    {
+        $module = $this->createModule();
+
+        $this->assertSame($module, (new WPPostContent())->getPluginModule());
+    }
+
+    public function testTheControlHasNoPluginModuleWithoutOneOnTheApplication()
+    {
+        $this->assertNull((new WPPostContent())->getPluginModule());
+    }
+
+    public function testTheControlUsesAnAttachedPluginModule()
     {
         $module = $this->createModule();
         $portlet = new WPPostContent();
-        $this->assertNull($portlet->getPluginModule());
 
         $this->attachPluginModule($portlet, $module);
 

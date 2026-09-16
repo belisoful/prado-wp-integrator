@@ -272,12 +272,9 @@ abstract class WPTestCase extends TestCase
     /**
      * Attaches a plugin module to a control.
      *
-     * TControl::getPluginModule() looks the module up only when its backing
-     * property is false, but pradosoft/prado 4.3.2 declares that property
-     * without a default, so it is null and the lookup never runs (see
-     * framework/Web/UI/TControl.php:147). The controls in this package call
-     * getPluginModule(), so tests inject the module the way a fixed framework
-     * would have found it.
+     * TControl::getPluginModule() resolves the module from the application on
+     * its own, so this only pins the module a test wants a control to use,
+     * independent of how the framework resolves it.
      *
      * @param \Prado\Web\UI\TControl $control the control to wire up
      * @param null|WPIntegratorModule $module the module, or null for the module on the application

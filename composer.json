@@ -38,7 +38,7 @@
 	"prefer-stable": true,
 	"require": {
 		"php": ">=7.4.0",
-		"pradosoft/prado": "dev-prado-4.3 || ^4.4@dev"
+		"pradosoft/prado": "^4.3@dev"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^10",

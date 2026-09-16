@@ -124,6 +124,19 @@ cd prado-wp-integrator
 composer upgrade
 ```
 
+The package requires `pradosoft/prado: ^4.3@dev`, which lets an application pick
+its own framework build, so a plain `composer upgrade` here floats with whatever
+that resolves to. The test suite pins framework behaviour, so CI installs one
+build, named by `PRADO_VERSION` in `.github/workflows/prado-wp-integrator.yml`.
+To run the tests against the same build CI does:
+```
+composer require --no-update pradosoft/prado:"4.4.x-dev#<the sha in PRADO_VERSION>"
+composer update
+```
+Bump `PRADO_VERSION` to adopt a newer framework build, or run the workflow by
+hand with a `prado_version` input (for example `4.4.x-dev`) to test against a
+branch head before pinning it.
+
 Now you are ready to run tests; a phpunit configuration file is provided, to run the tests just execute
 ```composer unittest``` to run unit tests.
 
