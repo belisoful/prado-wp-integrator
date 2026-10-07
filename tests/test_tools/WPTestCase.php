@@ -66,7 +66,45 @@ abstract class WPTestCase extends TestCase
             $this->removeDirectory($this->appPath);
         }
         $this->appPath = null;
+        $this->releasePradoErrorHandlers();
         parent::tearDown();
+    }
+
+    /**
+     * Undoes the error and exception handlers PRADO installs, for a test that
+     * runs in its own process.
+     *
+     * Prado::init() runs when the Prado class is first loaded, which inside an
+     * isolated child happens during the test - on top of the handlers PHPUnit
+     * installed for that test. PHPUnit balances its own handler afterwards,
+     * which then uncovers its handler instead of removing it, and the isolation
+     * template's `@rewind(STDOUT)` runs next. PHP 8.3 and later warn there,
+     * because the child's STDOUT is a pipe and a pipe cannot seek. PHPUnit's
+     * handler ignores the `@` and wants a TestCase on the call stack, which by
+     * then there is not, so it throws, PRADO's exception handler takes the
+     * throw over and exits with display_errors off, and the child dies without
+     * writing its result. The parent reports only "Test was run in child
+     * process and ended unexpectedly".
+     *
+     * Removing PRADO's handlers here keeps the stack balanced, so that warning
+     * reaches PHP's own handler and the `@` makes it harmless.
+     */
+    protected function releasePradoErrorHandlers(): void
+    {
+        // the isolation template declares this function, nothing else does
+        if (! function_exists('__phpunit_run_isolated_test')) {
+            return;
+        }
+        $errorHandler = set_error_handler(null);
+        restore_error_handler();
+        if ($errorHandler == [Prado::class, 'phpErrorHandler']) {
+            restore_error_handler();
+        }
+        $exceptionHandler = set_exception_handler(null);
+        restore_exception_handler();
+        if ($exceptionHandler == [Prado::class, 'exceptionHandler']) {
+            restore_exception_handler();
+        }
     }
 
     /**
@@ -282,7 +320,6 @@ abstract class WPTestCase extends TestCase
     protected function attachPluginModule($control, $module = null): void
     {
         $property = new \ReflectionProperty(\Prado\Web\UI\TControl::class, '_pluginmodule');
-        $property->setAccessible(true);
         $property->setValue($control, $module ?? $this->app->getModule('wp'));
     }
 

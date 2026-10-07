@@ -45,7 +45,6 @@ class WPAuthManagerTest extends WPTestCase
         $authManager = $this->app->getModule('wpauthmanager');
 
         $method = new \ReflectionMethod($authManager, 'generateUserKey');
-        $method->setAccessible(true);
 
         $this->assertSame(LOGGED_IN_COOKIE, $method->invoke($authManager));
         $this->assertSame('wordpress_logged_in_' . md5('http://example.com'), $method->invoke($authManager));

@@ -120,7 +120,6 @@ class WPPostContentTest extends WPTestCase
     private function loadTemplate(WPPostContent $portlet)
     {
         $method = new \ReflectionMethod($portlet, 'loadTemplate');
-        $method->setAccessible(true);
         return $method->invoke($portlet);
     }
 }

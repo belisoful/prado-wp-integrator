@@ -114,7 +114,6 @@ class WPThemeBehaviorTest extends WPTestCase
         $service = new TPageService();
         $service->setId('page');
         $property = new \ReflectionProperty(TPageService::class, '_page');
-        $property->setAccessible(true);
         $property->setValue($service, $page);
 
         return $service;
