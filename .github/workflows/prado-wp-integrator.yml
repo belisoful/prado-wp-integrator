@@ -13,7 +13,7 @@ on:
 # with the framework. CI pins one build instead, and only moves when this value
 # does. Bump it (and re-run the tests) to adopt a newer framework build.
 env:
-  PRADO_VERSION: '4.4.x-dev#6160b68d2d65efa7d5153f644ab7ee31bd67851a'
+  PRADO_VERSION: '4.4.x-dev#1aff3a2ac0baba4989bf7b2149282ebad9ee5653'
 
 jobs:
   wpintegrator:

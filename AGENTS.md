@@ -91,7 +91,7 @@
 - Tests should be isolated from each other (no shared state)
 
 ## Development Environment
-- PHP 8.1 or higher required
+- PHP 8.2 or higher required (matches pradosoft/prado master)
 - PHP extensions: ctype, dom, intl, json, pcre, spl (required)
 - Optional extensions for additional features: apcu, mbstring, openssl, pdo, soap, xsl, zlib
 - Composer for dependency management
