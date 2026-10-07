@@ -43,8 +43,8 @@
 	"require-dev": {
 		"phpunit/phpunit": "^10",
 		"phpdocumentor/shim": "^3",
-		"friendsofphp/php-cs-fixer": "^3.94",
-		"phpstan/phpstan": "^2.1",
+		"friendsofphp/php-cs-fixer": "3.95.27",
+		"phpstan/phpstan": "2.3.0",
 		"php-stubs/wordpress-stubs": "^7.0",
 		"roots/wordpress": "^7.0"
 	},

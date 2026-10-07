@@ -90,7 +90,8 @@ class WPUser extends TDbUser
 	 * is returned.
 	 *
 	 * @param string $username username (case-sensitive)
-	 * @return TDbUser the newly created and initialized user instance
+	 * @return ?TDbUser the newly created and initialized user instance, null when
+	 *				   the username is not in the user database
 	 */
 	public function createUser($username)
 	{
@@ -105,7 +106,7 @@ class WPUser extends TDbUser
 	 * from the given cookie.
 	 *
 	 * @param \Prado\Web\THttpCookie $cookie the cookie storing user authentication information
-	 * @return \Prado\Security\TDbUser the user instance generated based on the cookie auth data, null if the cookie does not have valid auth data.
+	 * @return ?\Prado\Security\TDbUser the user instance generated based on the cookie auth data, null if the cookie does not have valid auth data.
 	 * @see saveUserToCookie
 	 */
 	public function createUserFromCookie($cookie)
@@ -114,7 +115,7 @@ class WPUser extends TDbUser
 
 		$cookie_elements = explode('|', $cookieValue);
 		if (count($cookie_elements) !== 4) {
-			return false;
+			return null;
 		}
 		$scheme = 'auth';
 		[$username, $expiration, $token, $hmac] = $cookie_elements;

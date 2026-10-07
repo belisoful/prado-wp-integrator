@@ -86,7 +86,7 @@ class WPUserTest extends WPTestCase
     {
         $user = $this->makeUser();
 
-        $this->assertFalse($user->createUserFromCookie(new THttpCookie('auth', 'not|enough|parts')));
+        $this->assertNull($user->createUserFromCookie(new THttpCookie('auth', 'not|enough|parts')));
     }
 
     public function testCreateUserFromCookieRejectsAnExpiredCookie()

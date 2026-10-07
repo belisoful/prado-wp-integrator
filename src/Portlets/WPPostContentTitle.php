@@ -48,9 +48,9 @@ class WPPostContentTitle extends TLabel
 	}
 
 	/**
-	 * Writes the difference in time that the application started to the moment of this method call.
+	 * Writes the title of the WordPress post, when the post may be shown.
 	 *
-	 * @param \Prado\IO\TTextWriter $writer the writer used for the rendering output
+	 * @param \Prado\Web\UI\THtmlWriter $writer the writer used for the rendering output
 	 * @return void
 	 */
 	public function renderContents($writer)

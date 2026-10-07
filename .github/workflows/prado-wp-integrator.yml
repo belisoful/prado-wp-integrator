@@ -25,7 +25,7 @@ jobs:
         php-versions: ['8.2', '8.3', '8.4', '8.5']
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup PHP, with composer and extensions
         uses: shivammathur/setup-php@v2 #https://github.com/shivammathur/setup-php
@@ -45,7 +45,7 @@ jobs:
         run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}-${{ inputs.prado_version || env.PRADO_VERSION }}
@@ -58,7 +58,7 @@ jobs:
         run: composer update --no-progress --prefer-dist --optimize-autoloader
 
       - name: Validate code using phpstan
-        run: phpstan analyse --memory-limit=1G --error-format=checkstyle | cs2pr
+        run: vendor/bin/phpstan analyse --memory-limit=1G --error-format=checkstyle | cs2pr
 
       - name: Run Unit Tests
         run: composer unittest
