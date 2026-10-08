@@ -145,9 +145,11 @@ class WPThemeBehaviorTest extends WPTestCase
     }
 
     /**
-     * TTheme::setStyleSheetFiles() is protected in pradosoft/prado 4.3.2, so
-     * the filter a behavior computes cannot be written back to a plain theme.
-     * This pins that limitation; WPThemeBehaviorTest uses OpenTheme to test the
+     * TTheme::setStyleSheetFiles() is protected - still the case on
+     * pradosoft/prado master (4.4.0-dev, checked 2026-10-07) - so the filter a
+     * behavior computes cannot be written back to a plain theme, and
+     * TComponent::__call() swallows the inaccessible call without raising.
+     * This pins that limitation; the test above uses OpenTheme to exercise the
      * filter itself.
      */
     public function testTheFilterCannotBeAppliedToAPlainTheme()
